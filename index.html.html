@@ -1,0 +1,821 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ZaMsika — Buy • Sell • Transport</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css">
+<style>
+:root{--blue:#0877c9;--green:#209447;--dark:#0b4d87;--text:#163b62;--muted:#64748b;--border:#dbe5ef}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#fff}a{text-decoration:none}
+.zm-top{height:42px;background:var(--blue);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 5%;font-size:14px}.zm-top .r{display:flex;gap:16px}
+.zm-head{display:flex;align-items:center;gap:28px;padding:13px 4.5%;border-bottom:1px solid #e7edf4;background:#fff;position:sticky;top:0;z-index:20}.zm-logo{display:flex;align-items:center;gap:9px;min-width:280px}.zm-mark{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,#1b9148,#83bd35);display:grid;place-items:center;color:#fff;font-size:29px}.zm-name{font-size:30px;font-weight:800;color:#0b5ba0;line-height:1}.zm-name span{color:#209447}.zm-sub{font-size:12px;font-weight:700;margin-top:4px;color:#173f68}
+.zm-nav{display:flex;gap:25px;align-items:center;flex:1}.zm-nav a{color:#073f78;font-weight:600;font-size:16px;padding:15px 2px;border-bottom:3px solid transparent}.zm-nav a:hover,.zm-nav a.active{color:var(--blue);border-bottom-color:var(--blue)}
+.zm-search{display:flex;min-width:275px;border:1px solid #bdcad8;border-radius:8px;overflow:hidden}.zm-search input{width:100%;border:0;padding:11px;outline:0;font-size:14px}.zm-search button{width:54px;border:0;background:var(--blue);color:#fff;font-size:21px}
+.zm-hero{margin:0 1%;min-height:360px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,#effbe2 0%,#f5f9ee 52%,#d5edcc 100%)}.zm-hero:after{content:'🥬  🍅  🌽  🥕  🚚';position:absolute;right:3%;bottom:15px;font-size:68px;letter-spacing:5px}.zm-hero-inner{width:92%;margin:auto;z-index:1;padding:45px 0}.zm-kicker{font-size:18px;color:var(--green);font-weight:800}.zm-hero h1{font-size:46px;line-height:1.05;margin:7px 0;color:var(--dark)}.zm-hero h1 span{color:var(--green)}.zm-hero p{max-width:590px;font-size:18px;line-height:1.5;color:#355979}.zm-services{display:flex;gap:25px;margin:22px 0}.zm-service{display:flex;gap:9px;align-items:center;font-weight:800}.zm-service i{width:42px;height:42px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-style:normal}.zm-service small{font-weight:500}.zm-cta{display:inline-block;background:var(--green);color:#fff;padding:13px 27px;border-radius:24px;font-weight:800}
+.zm-section{padding:30px 4.5%}.zm-headline{display:flex;justify-content:space-between;align-items:end;gap:20px}.zm-section h2{margin:0 0 7px;color:var(--dark);font-size:30px}.zm-intro{margin:0 0 20px;color:#61748a;line-height:1.45}.zm-view{background:var(--blue);color:#fff;padding:12px 20px;border-radius:7px;font-weight:700}.zm-products{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.zm-product{border:1px solid var(--border);border-radius:8px;padding:10px;background:#fff;box-shadow:0 2px 7px #17406512}.zm-img{height:125px;background:#f3f7fb;border-radius:6px;display:grid;place-items:center;font-size:62px}.zm-product h3{font-size:15px;margin:10px 2px 5px;color:#104d89}.zm-cat{font-size:12px;color:#7290a8}.zm-price{font-size:17px;font-weight:800;color:var(--blue);margin:8px 2px}.zm-cart{width:100%;border:0;border-radius:6px;background:var(--blue);color:#fff;padding:10px;font-weight:700;cursor:pointer}
+.zm-about{padding-top:5px}.zm-footer{background:var(--blue);color:#fff;padding:22px 5%;display:flex;justify-content:space-between;align-items:center;gap:25px}.zm-footer a{color:#fff}.zm-contact{display:flex;gap:28px;flex-wrap:wrap}.zm-social{display:flex;gap:8px}.zm-social a{width:35px;height:35px;border-radius:50%;color:#fff;display:grid;place-items:center;font-size:16px}.zm-platform{border-top:1px solid #e5ebf2}.zm-platform-title{padding:17px 4.5%;font-size:14px;color:#68809a;font-weight:700}
+.sector-panel{display:none!important}.sector-panel.active{display:block!important}
+@media(max-width:1100px){.zm-products{grid-template-columns:repeat(3,1fr)}.zm-head{flex-wrap:wrap}.zm-nav{order:3;width:100%;overflow:auto}.zm-search{min-width:220px}}
+@media(max-width:700px){.zm-top{font-size:12px}.zm-head{padding:10px 4%}.zm-logo{min-width:auto}.zm-name{font-size:25px}.zm-nav{gap:15px}.zm-nav a{font-size:14px}.zm-search{width:100%}.zm-hero h1{font-size:34px}.zm-services{flex-wrap:wrap}.zm-products{grid-template-columns:1fr 1fr}.zm-footer{flex-direction:column;align-items:flex-start}}
+
+/* ---- Platform dashboard (was unstyled — content sat flush against the page edge) ---- */
+:root{--teal:#0d9488;--teal-d:#0f766e;--teal-l:#ccfbf1;--amber:#b45309;--amber-l:#fef3c7;--coral:#e11d48;--coral-l:#ffe4e6;--purple:#7c3aed;--purple-l:#ede9fe;--r:14px;--rm:8px;--b:#e2e8f0;--m:#64748b;--t:#163b62}
+.zm-platform{padding:20px 4.5% 50px}
+.sector-panel{padding-top:4px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--b);margin-bottom:18px;padding-bottom:2px}
+.stab{padding:10px 16px;font-size:13px;font-weight:700;color:var(--m);cursor:pointer;border-radius:8px 8px 0 0}
+.stab.active{color:var(--blue);background:#eef5fc;border-bottom:2px solid var(--blue)}
+.page{display:none}
+.page.active{display:block}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card,.metric,.pcard{background:#fff;border:1px solid var(--b);border-radius:var(--r);padding:16px;box-shadow:0 2px 8px #17406510}
+.ch{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;font-size:14px;color:var(--dark)}
+.ct{display:flex;align-items:center;gap:6px}
+.ml{font-size:12px;color:var(--m);margin-bottom:6px}
+.mv{font-size:22px;font-weight:800;color:var(--dark)}
+.row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b)}
+.row:last-child{border-bottom:0}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0}
+.ri{flex:1}
+.ri h4{margin:0;font-size:13px;color:var(--dark)}
+.ri p{margin:2px 0 0;font-size:12px;color:var(--m)}
+.rr{text-align:right;font-size:13px}
+.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.badge.bg{background:#dcfce7;color:#15803d}
+.badge.ba{background:var(--amber-l);color:var(--amber)}
+.badge.bb{background:#dbeafe;color:#1d4ed8}
+.badge.bc{background:var(--coral-l);color:var(--coral)}
+.badge.bp{background:var(--purple-l);color:var(--purple)}
+.btn,.btnp{border:0;border-radius:8px;padding:10px 16px;font-weight:700;font-size:13px;cursor:pointer}
+.btn{background:#eef2f7;color:var(--dark)}
+.btnp{background:var(--blue);color:#fff}
+.inp{border:1px solid var(--b);border-radius:8px;padding:10px 12px;font-size:13px;width:100%;margin-bottom:8px;font-family:inherit}
+.picon{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;margin-bottom:10px}
+.tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;background:#eef2f7;color:var(--m)}
+.tag.tp{background:var(--purple-l);color:var(--purple)}
+.tag.tg{background:#dcfce7;color:#15803d}
+.cartbar{display:flex;justify-content:space-between;align-items:center;background:#f5f8fb;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px}
+.product-actions{display:flex;gap:6px;margin-top:8px}
+.abox{background:var(--teal-l);border-radius:var(--rm);padding:12px;margin-bottom:12px}
+.empty-products{padding:30px;text-align:center;color:var(--m);font-size:13px;grid-column:1/-1}
+.add-box{background:#f8fafc;border:1px dashed var(--b);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.add-box h3{margin:0 0 12px;font-size:15px;color:var(--dark)}
+.add-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.market-toolbar{display:flex;gap:8px;margin-bottom:14px}
+.market-toolbar .inp{margin-bottom:0}
+.tbar{height:6px;background:#e5e9f0;border-radius:4px;overflow:hidden;margin:10px 0}
+.tfill{height:100%}
+.steps{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--m)}
+.step{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;text-align:center}
+.step.done{color:#15803d}
+.step.cur{color:var(--blue);font-weight:700}
+.sdot{width:10px;height:10px;border-radius:50%;background:var(--border)}
+.step.done .sdot{background:#22c55e}
+.step.cur .sdot{background:var(--blue)}
+.chat-wrap{display:flex;flex-direction:column;height:480px;border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
+.chat-head{color:#fff;padding:12px 16px;font-weight:700}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f8fafc}
+.msg{max-width:75%;padding:9px 13px;border-radius:12px;font-size:13px;line-height:1.4}
+.msg.mbot{background:#fff;border:1px solid var(--b);align-self:flex-start}
+.msg:not(.mbot){background:var(--blue);color:#fff;align-self:flex-end}
+.chat-in{display:flex;gap:8px;padding:12px;border-top:1px solid var(--b);background:#fff}
+.chat-in .inp{margin-bottom:0}
+.mlang{font-size:10px;opacity:.6;margin-top:4px}
+@media(max-width:900px){.g2,.g3,.g4,.add-grid{grid-template-columns:1fr}}
+.zm-modal-overlay{display:none;position:fixed;inset:0;background:rgba(11,40,70,.55);z-index:100;align-items:center;justify-content:center;padding:20px}
+.zm-modal{background:#fff;border-radius:var(--r);padding:22px;width:100%;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.zm-modal h3{margin:0 0 14px;color:var(--dark);font-size:18px}
+.zm-modal-item{display:flex;justify-content:space-between;align-items:center;background:#f5f8fb;border-radius:8px;padding:10px 12px;margin-bottom:16px;font-size:14px;color:var(--dark)}
+.zm-modal-label{font-size:12px;font-weight:700;color:var(--m);margin-bottom:8px}
+.zm-paymethod{display:flex;align-items:center;gap:10px;border:1px solid var(--b);border-radius:8px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-size:14px;color:var(--dark)}
+.zm-paymethod:has(input:checked){border-color:var(--blue);background:#eef5fc}
+.zm-paymethod input{margin:0}
+.zm-pm-icon{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;font-size:12px;flex-shrink:0}
+.zm-modal-actions{display:flex;gap:8px;margin-top:14px}
+.zm-modal-actions .btn,.zm-modal-actions .btnp{flex:1}
+.btnp:disabled{opacity:.5;cursor:not-allowed}
+</style></head><body>
+<div id="zm-home">
+<div class="zm-top"><div>🚚 Fast &amp; Reliable Delivery</div><div class="r"><span>👤 Login</span><span>|</span><span>Register</span><span style="cursor:pointer" onclick="openCartView()">🛒 My Cart (<span id="cartCountTop">0</span>)</span><span>MK</span></div></div>
+<header class="zm-head">
+<a class="zm-logo" href="#" onclick="showHome();return false;"><div class="zm-mark">🌱</div><div><div class="zm-name">Za<span>Msika</span></div><div class="zm-sub">Buy &nbsp; • &nbsp; Sell &nbsp; • &nbsp; Transport</div></div></a>
+<nav class="zm-nav"><a id="navHome" class="active" href="#" onclick="showHome();return false;">Home</a><a href="#agriculture" onclick="openSector('agri');return false;">Agriculture ▾</a><a href="#retail" onclick="openSector('retail');return false;">Retail ▾</a><a href="#logistics" onclick="openSector('logistics');return false;">Logistics ▾</a><a href="#about" onclick="showAbout();return false;">About Us</a><a href="#contact" onclick="showContact();return false;">Contact</a></nav>
+<form class="zm-search" onsubmit="runZmSearch(event)"><input id="zmSearchInput" placeholder="Search for products..."><button>⌕</button></form>
+</header>
+<section class="zm-hero"><div class="zm-hero-inner"><div class="zm-kicker">🌿 Fresh Products</div><h1>Direct from <span>Farmers</span></h1><p>Quality farm produce, retail goods and reliable transport services — all in one place. Buy, sell and transport through ZaMsika.</p><div class="zm-services"><div class="zm-service"><i>🌱</i><div>Buy<br><small>Fresh Produce</small></div></div><div class="zm-service"><i>🛒</i><div>Sell<br><small>Your Products</small></div></div><div class="zm-service"><i>🚚</i><div>Transport<br><small>Your Goods</small></div></div></div><a class="zm-cta" href="#products" onclick="openFeatured();return false;">Shop Now →</a></div></section>
+<section class="zm-section" id="products"><div class="zm-headline"><div><h2>🌿 Featured Products</h2><p class="zm-intro">Discover quality products for your farm, home and everyday needs. From fresh produce and agricultural supplies to retail essentials and transport services, we’ve got you covered.</p></div><a class="zm-view" href="#agriculture" onclick="openSector('agri');return false;">View All Products →</a></div>
+<div class="zm-products">
+<div class="zm-product"><div class="zm-img">🥬🍅🥕</div><h3>Fresh Vegetables Basket</h3><div class="zm-cat">🌱 Agriculture</div><div class="zm-price">MK 120,000</div><button class="zm-cart" onclick="openSector('agri')">View Product</button></div>
+<div class="zm-product"><div class="zm-img">🌽</div><h3>Maize (10kg)</h3><div class="zm-cat">🌱 Agriculture</div><div class="zm-price">MK 85,000</div><button class="zm-cart" onclick="openSector('agri')">View Product</button></div>
+<div class="zm-product"><div class="zm-img">🛍️</div><h3>Retail Essentials</h3><div class="zm-cat">🛒 Retail</div><div class="zm-price">View prices</div><button class="zm-cart" onclick="openSector('retail')">Shop Retail</button></div>
+<div class="zm-product"><div class="zm-img">🛢️</div><h3>Cooking Oil</h3><div class="zm-cat">🛒 Retail</div><div class="zm-price">View prices</div><button class="zm-cart" onclick="openSector('retail')">Shop Retail</button></div>
+<div class="zm-product"><div class="zm-img">🚚</div><h3>Transport Services</h3><div class="zm-cat">🚚 Logistics</div><div class="zm-price">Get a quote</div><button class="zm-cart" onclick="openSector('logistics')">Book Transport</button></div>
+</div></section>
+<section class="zm-section zm-about" id="about"><h2>About ZaMsika</h2><p class="zm-intro">ZaMsika brings agriculture, retail, buying, selling and transport together in one marketplace, helping farmers, businesses, buyers and transporters connect.</p></section>
+</div>
+<div id="zm-platform" class="zm-platform"><div class="zm-platform-title">ZaMsika Platform — Agriculture • Retail • Logistics • Supply Chain • Payments • AI Chat</div><div id="sector-agri" class="sector-panel active">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('agri','overview')">Overview</div><div class="stab" onclick="showSub('agri','products');renderAgricultureProducts()">Products</div>
+    <div class="stab" onclick="showSub('agri','market')">Marketplace</div>
+    <div class="stab" onclick="showSub('agri','pricing')">Live Pricing</div>
+    <div class="stab" onclick="showSub('agri','negotiate')">Negotiate</div>
+  </div>
+  <div id="agri-overview" class="page active">
+    <div class="g4" style="margin-bottom:12px">
+      <div class="metric"><div class="ml">Active listings</div><div class="mv" style="color:var(--teal)">248</div></div>
+      <div class="metric"><div class="ml">Pending orders</div><div class="mv" style="color:var(--amber)">37</div></div>
+      <div class="metric"><div class="ml">Agreed deals today</div><div class="mv" style="color:var(--teal)">9</div></div>
+      <div class="metric"><div class="ml">AI price alerts</div><div class="mv" style="color:var(--blue)">5</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-activity" aria-hidden="true"></i> Recent activity</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">MB</div><div class="ri"><h4>Mphatso Banda</h4><p>Buyer · Requested 50 bags maize</p></div><span class="badge bg">New</span></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">CZ</div><div class="ri"><h4>Chisomo Zimba</h4><p>Supplier · Listed groundnuts 2T</p></div><span class="badge ba">Listed</span></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)">FN</div><div class="ri"><h4>Fatima Nkosi</h4><p>Price agreed · soybean 5T</p></div><span class="badge bg">Agreed</span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-bulb" aria-hidden="true"></i> AI market insights</span></div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="background:var(--teal-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--teal-d)"><strong>Price alert:</strong> Maize +12% this week in Central Region.</div>
+          <div style="background:var(--amber-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--amber)"><strong>Supply gap:</strong> Groundnut demand exceeds supply 18T in North.</div>
+          <div style="background:var(--blue-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--blue)"><strong>Opportunity:</strong> 5 new buyers in Mzuzu seeking rice suppliers.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="agri-market" class="page">
+    <div style="display:flex;gap:7px;margin-bottom:12px">
+      <input class="inp" style="flex:1;margin:0" placeholder="Search commodities...">
+      <select class="inp" style="width:120px;margin:0"><option>All regions</option><option>Central</option><option>Northern</option><option>Southern</option></select>
+      <button class="btnp">Search</button>
+    </div>
+    <div class="g3">
+      <div class="pcard"><div class="picon" style="background:var(--teal-l)"><i class="ti ti-wheat" style="font-size:28px;color:var(--teal)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Maize · 20 bags (50kg)</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Chimwemwe Farm · Kasungu</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--teal)">MK 18,500/bag</span><span class="badge bg">Available</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('I want to negotiate maize price from Chimwemwe Farm')">Negotiate ↗</button><button class="btnp" style="flex:1;font-size:11px">Order</button></div></div>
+      <div class="pcard"><div class="picon" style="background:var(--amber-l)"><i class="ti ti-leaf" style="font-size:28px;color:var(--amber)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Groundnuts · 2 tonnes</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Chisomo Zimba · Mzuzu</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--amber)">MK 450,000/T</span><span class="badge ba">Limited</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('What is a fair price for groundnuts in Northern Malawi today?')">AI Price ↗</button><button class="btnp" style="flex:1;font-size:11px">Order</button></div></div>
+      <div class="pcard"><div class="picon" style="background:var(--blue-l)"><i class="ti ti-droplets" style="font-size:28px;color:var(--blue)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Soybean · 5 tonnes</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Fatima Enterprises · Zomba</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--blue)">MK 380,000/T</span><span class="badge bb">In stock</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('Compare soybean suppliers in Southern Malawi')">Compare ↗</button><button class="btnp" style="flex:1;font-size:11px">Order</button></div></div>
+    </div>
+  </div>
+
+  <div id="agri-products" class="page">
+    <div class="cartbar">
+      <span><strong>Marketplace products</strong> — browse real listings added in this browser</span>
+      <span id="agri-cart-count">Cart: 0</span>
+    </div>
+    <div class="add-box">
+      <h3>🌾 Add your agricultural product</h3>
+      <div class="add-grid">
+        <input class="inp" id="agri-name" placeholder="Product name (e.g. Tomatoes)">
+        <input class="inp" id="agri-price" type="number" min="0" placeholder="Price in MK">
+        <input class="inp" id="agri-qty" placeholder="Quantity / unit (e.g. 50 kg)">
+        <input class="inp" id="agri-seller" placeholder="Farmer / seller name">
+        <input class="inp" id="agri-location" placeholder="Location">
+        <select class="inp" id="agri-category">
+          <option>Vegetables</option><option>Grains</option><option>Legumes</option>
+          <option>Fruits</option><option>Other</option>
+        </select>
+      </div>
+      <button class="btnp" onclick="addAgricultureProduct()">Add product to marketplace</button>
+    </div>
+    <div class="market-toolbar">
+      <input class="inp" id="agri-product-search" placeholder="Search products, sellers or locations..." oninput="renderAgricultureProducts()">
+      <select class="inp" id="agri-product-category" onchange="renderAgricultureProducts()">
+        <option>All categories</option><option>Vegetables</option><option>Grains</option>
+        <option>Legumes</option><option>Fruits</option><option>Other</option>
+      </select>
+    </div>
+    <div id="agri-product-grid" class="g3"></div>
+  </div>
+
+  <div id="agri-pricing" class="page">
+    <div class="card" style="margin-bottom:10px">
+      <div class="ch"><span class="ct"><i class="ti ti-chart-line" aria-hidden="true"></i> Live commodity prices</span><span style="font-size:11px;color:var(--m)">Updated 2 min ago</span></div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--b)"><th style="padding:6px 4px;text-align:left;color:var(--m);font-weight:500">Commodity</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Buy</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Sell</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Change</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Action</th></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">Maize (50kg)</td><td style="padding:7px 4px">MK 17,200</td><td style="padding:7px 4px">MK 18,500</td><td style="padding:7px 4px;color:var(--teal)"><i class="ti ti-trending-up" aria-hidden="true"></i> +5.2%</td><td style="padding:7px 4px"><button class="btnp" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Set a maize price offer on ZaMsika')">Set price ↗</button></td></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">Groundnuts (1T)</td><td style="padding:7px 4px">MK 420,000</td><td style="padding:7px 4px">MK 450,000</td><td style="padding:7px 4px;color:var(--teal)"><i class="ti ti-trending-up" aria-hidden="true"></i> +8.1%</td><td style="padding:7px 4px"><button class="btnp" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Post a groundnut selling price on the marketplace')">Set price ↗</button></td></tr>
+        <tr><td style="padding:7px 4px">Soybean (1T)</td><td style="padding:7px 4px">MK 360,000</td><td style="padding:7px 4px">MK 380,000</td><td style="padding:7px 4px;color:#A32D2D"><i class="ti ti-trending-down" aria-hidden="true"></i> -2.3%</td><td style="padding:7px 4px"><button class="btnp" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Analyse soybean price trend — should I buy or wait?')">Analyse ↗</button></td></tr>
+      </table>
+    </div>
+    <div class="abox"><div style="font-size:12px;color:var(--teal-d)"><strong>Price agreement zone</strong> — Buyer: MK 17,800 · Seller: MK 18,200 · <strong>AI suggests: MK 18,000</strong> (fair market)</div></div>
+    <button class="btnp" onclick="sendPrompt('Both parties agree on MK 18,000 — generate a price agreement contract')">Accept AI price & generate agreement ↗</button>
+  </div>
+  <div id="agri-negotiate" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-handshake" aria-hidden="true"></i> Active negotiations</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">MB</div><div class="ri"><h4>Mphatso ↔ Chimwemwe</h4><p>Maize · 30 bags · Round 3</p></div><span class="badge ba">Counter</span></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)">FN</div><div class="ri"><h4>Fatima ↔ Soybean Co.</h4><p>Soybean · 2T · Near agree</p></div><span class="badge bg">Close</span></div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-robot" aria-hidden="true"></i> AI negotiation assist</span></div>
+        <div style="font-size:12px;color:var(--m);margin-bottom:10px">The AI mediates between buyer and seller, suggests fair prices from real market data, and generates binding agreements when both parties accept.</div>
+        <button class="btnp" style="width:100%" onclick="sendPrompt('Help me negotiate a fair price for 30 bags of maize between buyer and seller on ZaMsika')">Start AI-assisted negotiation ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="sector-retail" class="sector-panel">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('retail','shop')">Shop</div><div class="stab" onclick="showSub('retail','products');renderRetailProducts()">Products</div>
+    <div class="stab" onclick="showSub('retail','sellers')">Sellers</div>
+    <div class="stab" onclick="showSub('retail','orders')">Orders</div>
+  </div>
+  <div id="retail-shop" class="page active">
+    <div style="display:flex;gap:7px;margin-bottom:12px">
+      <input class="inp" style="flex:1;margin:0" placeholder="Search products — soap, cooking oil, clothes...">
+      <select class="inp" style="width:130px;margin:0"><option>All categories</option><option>Groceries</option><option>Clothing</option><option>Electronics</option><option>Hardware</option></select>
+      <button class="btnp">Search</button>
+    </div>
+    <div class="g4" style="margin-bottom:12px">
+      <div class="metric"><div class="ml">Products listed</div><div class="mv" style="color:var(--purple)">1,840</div></div>
+      <div class="metric"><div class="ml">Active sellers</div><div class="mv" style="color:var(--teal)">312</div></div>
+      <div class="metric"><div class="ml">Orders today</div><div class="mv" style="color:var(--amber)">94</div></div>
+      <div class="metric"><div class="ml">Avg delivery days</div><div class="mv">2.4</div></div>
+    </div>
+    <div class="g3">
+      <div class="pcard"><div class="picon" style="background:var(--purple-l)"><i class="ti ti-shirt" style="font-size:28px;color:var(--purple)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Chitenge fabric · 6 yards</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Lusungu Textiles · Blantyre</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--purple)">MK 8,500</span><span class="badge bp">In stock</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('Are there better deals on chitenge fabric in Blantyre on ZaMsika?')">Compare ↗</button><button class="btnp" style="flex:1;font-size:11px">Buy</button></div></div>
+      <div class="pcard"><div class="picon" style="background:var(--amber-l)"><i class="ti ti-droplet" style="font-size:28px;color:var(--amber)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Cooking oil · 20L drum</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Sunflower Wholesale · Lilongwe</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--amber)">MK 42,000</span><span class="badge ba">Bulk deal</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('I want to buy cooking oil in bulk — find the cheapest suppliers on ZaMsika')">Best deal ↗</button><button class="btnp" style="flex:1;font-size:11px">Buy</button></div></div>
+      <div class="pcard"><div class="picon" style="background:var(--coral-l)"><i class="ti ti-device-mobile" style="font-size:28px;color:var(--coral)" aria-hidden="true"></i></div><h4 style="font-size:13px;font-weight:500">Smartphone · Android 4G</h4><p style="font-size:11px;color:var(--m);margin:3px 0 7px">Techmart · Mzuzu</p><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span style="font-size:14px;font-weight:500;color:var(--coral)">MK 185,000</span><span class="badge bc">New</span></div><div style="display:flex;gap:5px"><button class="btn" style="flex:1;font-size:11px" onclick="sendPrompt('Compare smartphone prices across sellers on ZaMsika marketplace')">Compare ↗</button><button class="btnp" style="flex:1;font-size:11px">Buy</button></div></div>
+    </div>
+  </div>
+
+  <div id="retail-products" class="page">
+    <div class="cartbar">
+      <span><strong>Retail marketplace</strong> — products, prices and sellers</span>
+      <span id="retail-cart-count">Cart: 0</span>
+    </div>
+    <div class="add-box">
+      <h3>🛒 Add a retail product</h3>
+      <div class="add-grid">
+        <input class="inp" id="retail-name" placeholder="Product name">
+        <input class="inp" id="retail-price" type="number" min="0" placeholder="Price in MK">
+        <input class="inp" id="retail-qty" placeholder="Quantity / unit">
+        <input class="inp" id="retail-seller" placeholder="Shop / seller name">
+        <input class="inp" id="retail-location" placeholder="Location">
+        <select class="inp" id="retail-category">
+          <option>Groceries</option><option>Clothing</option><option>Electronics</option>
+          <option>Hardware</option><option>Other</option>
+        </select>
+      </div>
+      <button class="btnp" onclick="addRetailProduct()">Add product to marketplace</button>
+    </div>
+    <div class="market-toolbar">
+      <input class="inp" id="retail-product-search" placeholder="Search products, sellers or locations..." oninput="renderRetailProducts()">
+      <select class="inp" id="retail-product-category" onchange="renderRetailProducts()">
+        <option>All categories</option><option>Groceries</option><option>Clothing</option>
+        <option>Electronics</option><option>Hardware</option><option>Other</option>
+      </select>
+    </div>
+    <div id="retail-product-grid" class="g3"></div>
+  </div>
+
+  <div id="retail-sellers" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-store" aria-hidden="true"></i> Top sellers</span></div>
+        <div class="row"><div class="av" style="background:var(--purple-l);color:var(--purple)">LT</div><div class="ri"><h4>Lusungu Textiles</h4><p>Clothing & fabric · Blantyre · 4.9★</p></div><span class="badge bp">Verified</span></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">SW</div><div class="ri"><h4>Sunflower Wholesale</h4><p>Groceries · Lilongwe · 4.7★</p></div><span class="badge bg">Top seller</span></div>
+        <div class="row"><div class="av" style="background:var(--coral-l);color:var(--coral)">TM</div><div class="ri"><h4>Techmart</h4><p>Electronics · Mzuzu · 4.6★</p></div><span class="badge bb">New</span></div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-plus" aria-hidden="true"></i> Register as seller</span></div>
+        <input class="inp" placeholder="Business name"><input class="inp" placeholder="Category"><input class="inp" placeholder="Location"><button class="btnp" style="width:100%" onclick="sendPrompt('I want to register my retail business on ZaMsika marketplace — walk me through the process')">Register business ↗</button>
+      </div>
+    </div>
+  </div>
+  <div id="retail-orders" class="page">
+    <div class="card"><div class="ch"><span class="ct"><i class="ti ti-package" aria-hidden="true"></i> My orders</span></div>
+      <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)"><i class="ti ti-droplet" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>Cooking oil 20L · Sunflower Wholesale</h4><p>Ordered 2 days ago · Lilongwe</p></div><div class="rr"><strong>MK 42,000</strong><span class="badge bg" style="margin-top:2px">Delivered</span></div></div>
+      <div class="row"><div class="av" style="background:var(--purple-l);color:var(--purple)"><i class="ti ti-shirt" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>Chitenge x3 · Lusungu Textiles</h4><p>Ordered today · Blantyre</p></div><div class="rr"><strong>MK 25,500</strong><span class="badge ba" style="margin-top:2px">In transit</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div id="sector-logistics" class="sector-panel">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('logistics','track')">Track shipments</div>
+    <div class="stab" onclick="showSub('logistics','book')">Book transport</div>
+    <div class="stab" onclick="showSub('logistics','fleet')">Fleet & drivers</div>
+  </div>
+  <div id="logistics-track" class="page active">
+    <div class="g4" style="margin-bottom:12px">
+      <div class="metric"><div class="ml">Active shipments</div><div class="mv" style="color:var(--teal)">47</div></div>
+      <div class="metric"><div class="ml">Delivered today</div><div class="mv" style="color:var(--teal)">18</div></div>
+      <div class="metric"><div class="ml">Delayed</div><div class="mv" style="color:#A32D2D">3</div></div>
+      <div class="metric"><div class="ml">Sectors served</div><div class="mv">2</div></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct"><i class="ti ti-truck" aria-hidden="true"></i> Live shipment tracker</span></div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <div><span style="font-size:13px;font-weight:500">#ZMS-2847</span> <span class="badge ba">In transit</span><div style="font-size:11px;color:var(--m)">Maize · 20 bags · Kasungu → Lilongwe</div></div>
+          <button class="btn" style="font-size:11px" onclick="sendPrompt('Give me a live ETA update for shipment ZMS-2847 Kasungu to Lilongwe')">Live ETA ↗</button>
+        </div>
+        <div class="tbar"><div class="tfill" style="width:65%;background:var(--teal)"></div></div>
+        <div class="steps"><div class="step done"><div class="sdot"></div>Pickup</div><div class="step done"><div class="sdot"></div>Dispatch</div><div class="step cur"><div class="sdot"></div>On road</div><div class="step"><div class="sdot"></div>Delivered</div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+          <div><span style="font-size:13px;font-weight:500">#ZMS-2851</span> <span class="badge bg">Retail</span><div style="font-size:11px;color:var(--m)">Cooking oil · 20L drums · Lilongwe → Blantyre</div></div>
+          <button class="btn" style="font-size:11px" onclick="sendPrompt('Track retail shipment ZMS-2851 and give me a live ETA')">Track shipment ↗</button>
+        </div>
+        <div class="tbar"><div class="tfill" style="width:30%;background:var(--purple)"></div></div>
+        <div class="steps"><div class="step done"><div class="sdot"></div>Pickup</div><div class="step cur"><div class="sdot"></div>Loading</div><div class="step"><div class="sdot"></div>Transit</div><div class="step"><div class="sdot"></div>Delivered</div></div>
+      </div>
+    </div>
+  </div>
+  <div id="logistics-book" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-route" aria-hidden="true"></i> Book logistics</span></div>
+        <select class="inp"><option>Agriculture · commodities</option><option>Retail · general goods</option></select>
+        <input class="inp" placeholder="Pickup location"><input class="inp" placeholder="Delivery location"><input class="inp" placeholder="Cargo description & weight"><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px"><select class="inp" style="margin:0"><option>3T truck</option><option>10T truck</option><option>Cold van</option><option>Minivan</option></select><input class="inp" style="margin:0" placeholder="Date needed"></div>
+        <button class="btnp" style="width:100%" onclick="sendPrompt('Book logistics on ZaMsika — get me quotes from available transporters for my sector and route')">Get quotes from transporters ↗</button>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-map-pin" aria-hidden="true"></i> Available transporters</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">TK</div><div class="ri"><h4>Tiyamike Kachingwe</h4><p>5T truck · Lilongwe · 4.8★ · All sectors</p></div><div class="rr"><strong>MK 45,000</strong><small>Lil–Blantyre</small></div></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">GT</div><div class="ri"><h4>Green Trans Logistics</h4><p>10T fleet · Kasungu · Agriculture specialist · 4.9★</p></div><div class="rr"><strong>MK 65,000</strong><small>National</small></div></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">SM</div><div class="ri"><h4>Sunrise Movers</h4><p>Fleet 10T · Mzuzu · 4.6★ · All sectors</p></div><div class="rr"><strong>MK 85,000</strong><small>North–South</small></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="logistics-fleet" class="page">
+    <div class="card"><div class="ch"><span class="ct"><i class="ti ti-car" aria-hidden="true"></i> Register your vehicle</span></div>
+      <div class="g2"><div><input class="inp" placeholder="Driver name"><input class="inp" placeholder="Vehicle type & capacity"><input class="inp" placeholder="Base location"><select class="inp"><option>All sectors</option><option>Agriculture</option><option>Retail</option></select></div><div style="background:var(--teal-l);border-radius:var(--r);padding:12px"><div style="font-size:12px;color:var(--teal-d);font-weight:500;margin-bottom:6px">Why join ZaMsika logistics?</div><div style="font-size:12px;color:var(--teal-d);line-height:1.8">Access orders from agriculture & retail<br>AI-matched to best-fit routes<br>Transparent pricing & ratings<br>Digital payments — no cash disputes</div></div></div>
+      <button class="btnp" style="width:100%;margin-top:10px" onclick="sendPrompt('Register my truck on ZaMsika as a logistics provider serving agriculture and retail sectors')">Register vehicle ↗</button>
+    </div>
+  </div>
+</div>
+
+<div id="sector-supply" class="sector-panel">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('supply','overview')">Overview</div>
+    <div class="stab" onclick="showSub('supply','suppliers')">Suppliers</div>
+    <div class="stab" onclick="showSub('supply','inventory')">Inventory</div>
+    <div class="stab" onclick="showSub('supply','procure')">Procurement</div>
+    <div class="stab" onclick="showSub('supply','pricing')">Unified Pricing</div>
+  </div>
+  <div id="supply-overview" class="page active">
+    <div class="g4" style="margin-bottom:12px">
+      <div class="metric"><div class="ml">Active suppliers</div><div class="mv" style="color:var(--teal)">86</div></div>
+      <div class="metric"><div class="ml">Open purchase orders</div><div class="mv" style="color:var(--amber)">21</div></div>
+      <div class="metric"><div class="ml">Warehouses linked</div><div class="mv" style="color:var(--blue)">6</div></div>
+      <div class="metric"><div class="ml">Stock alerts</div><div class="mv" style="color:#A32D2D">4</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-activity" aria-hidden="true"></i> Recent supply chain activity</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">GT</div><div class="ri"><h4>Green Trans Logistics</h4><p>Delivered 10T maize to Lilongwe warehouse</p></div><span class="badge bg">Received</span></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">SW</div><div class="ri"><h4>Sunflower Wholesale</h4><p>PO #SC-1042 · Cooking oil restock</p></div><span class="badge ba">Pending</span></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)">TM</div><div class="ri"><h4>Techmart</h4><p>Low stock alert · Smartphones · Mzuzu hub</p></div><span class="badge bb">Reorder</span></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-bulb" aria-hidden="true"></i> AI supply chain insights</span></div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="background:var(--teal-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--teal-d)"><strong>Optimisation:</strong> Consolidating Kasungu & Lilongwe orders could cut freight costs 14%.</div>
+          <div style="background:var(--amber-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--amber)"><strong>Stock risk:</strong> Cooking oil inventory in Lilongwe hub covers 4 days at current demand.</div>
+          <div style="background:var(--blue-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--blue)"><strong>Supplier match:</strong> 3 new verified maize suppliers in Central Region added this week.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="supply-suppliers" class="page">
+    <div style="display:flex;gap:7px;margin-bottom:12px">
+      <input class="inp" style="flex:1;margin:0" placeholder="Search suppliers by product or region...">
+      <select class="inp" style="width:130px;margin:0"><option>All categories</option><option>Agriculture</option><option>Retail goods</option><option>Packaging</option></select>
+      <button class="btnp">Search</button>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-building-warehouse" aria-hidden="true"></i> Approved suppliers</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">CF</div><div class="ri"><h4>Chimwemwe Farm</h4><p>Maize & grains · Kasungu · 4.8★</p></div><span class="badge bg">Verified</span></div>
+        <div class="row"><div class="av" style="background:var(--purple-l);color:var(--purple)">LT</div><div class="ri"><h4>Lusungu Textiles</h4><p>Packaging materials · Blantyre · 4.7★</p></div><span class="badge bp">Verified</span></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">SW</div><div class="ri"><h4>Sunflower Wholesale</h4><p>Bulk groceries · Lilongwe · 4.6★</p></div><span class="badge ba">Under review</span></div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-plus" aria-hidden="true"></i> Onboard a supplier</span></div>
+        <input class="inp" placeholder="Supplier name"><input class="inp" placeholder="Product category"><input class="inp" placeholder="Location & lead time"><button class="btnp" style="width:100%" onclick="sendPrompt('I want to onboard a new supplier into the ZaMsika supply chain network — walk me through verification')">Start onboarding ↗</button>
+      </div>
+    </div>
+  </div>
+  <div id="supply-inventory" class="page">
+    <div class="card" style="margin-bottom:10px">
+      <div class="ch"><span class="ct"><i class="ti ti-boxes" aria-hidden="true"></i> Warehouse inventory</span><span style="font-size:11px;color:var(--m)">Updated 5 min ago</span></div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--b)"><th style="padding:6px 4px;text-align:left;color:var(--m);font-weight:500">Item</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Hub</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Stock</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Days cover</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Action</th></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">Maize (50kg bags)</td><td style="padding:7px 4px">Lilongwe</td><td style="padding:7px 4px">1,240</td><td style="padding:7px 4px;color:var(--teal)">18 days</td><td style="padding:7px 4px"><button class="btn" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Show maize inventory forecast for the Lilongwe warehouse')">Forecast ↗</button></td></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">Cooking oil (20L)</td><td style="padding:7px 4px">Lilongwe</td><td style="padding:7px 4px">64</td><td style="padding:7px 4px;color:#A32D2D">4 days</td><td style="padding:7px 4px"><button class="btnp" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Raise a purchase order to restock cooking oil at the Lilongwe warehouse')">Reorder ↗</button></td></tr>
+        <tr><td style="padding:7px 4px">Smartphones</td><td style="padding:7px 4px">Mzuzu</td><td style="padding:7px 4px">32</td><td style="padding:7px 4px;color:var(--amber)">9 days</td><td style="padding:7px 4px"><button class="btn" style="font-size:11px;padding:3px 8px" onclick="sendPrompt('Analyse smartphone stock levels across all ZaMsika warehouses')">Analyse ↗</button></td></tr>
+      </table>
+    </div>
+    <div class="abox"><div style="font-size:12px;color:var(--teal-d)"><strong>AI reorder point reached</strong> — Cooking oil at Lilongwe hub · <strong>Suggested order: 200 x 20L drums</strong></div></div>
+    <button class="btnp" onclick="sendPrompt('Generate a purchase order for 200 drums of cooking oil for the Lilongwe warehouse')">Generate purchase order ↗</button>
+  </div>
+  <div id="supply-procure" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-clipboard-list" aria-hidden="true"></i> Purchase orders</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">PO</div><div class="ri"><h4>PO #SC-1042</h4><p>Cooking oil · 200 drums · Sunflower Wholesale</p></div><span class="badge ba">Awaiting approval</span></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)">PO</div><div class="ri"><h4>PO #SC-1039</h4><p>Maize · 500 bags · Chimwemwe Farm</p></div><span class="badge bg">Approved</span></div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-robot" aria-hidden="true"></i> AI procurement assist</span></div>
+        <div style="font-size:12px;color:var(--m);margin-bottom:10px">The AI compares supplier quotes, checks lead times and stock levels, and drafts purchase orders ready for approval.</div>
+        <button class="btnp" style="width:100%" onclick="sendPrompt('Compare supplier quotes and draft a purchase order for restocking cooking oil')">Draft AI purchase order ↗</button>
+      </div>
+    </div>
+  </div>
+  <div id="supply-pricing" class="page">
+    <div class="card" style="margin-bottom:10px">
+      <div class="ch"><span class="ct"><i class="ti ti-tags" aria-hidden="true"></i> Unified price push</span></div>
+      <div style="font-size:12px;color:var(--m);margin-bottom:10px">Set a price once and push it live everywhere it matters — the marketplace price in Agriculture, the freight-adjusted quote in Logistics, and the shelf price in Retail — with a single action.</div>
+      <div class="g2">
+        <div>
+          <input class="inp" id="up-item" placeholder="Product / commodity" value="Maize (50kg bag)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px">
+            <input class="inp" id="up-price" style="margin:0" placeholder="Base price (MK)" value="18500">
+            <select class="inp" id="up-region" style="margin:0"><option>Central Region</option><option>Northern Region</option><option>Southern Region</option><option>All regions</option></select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+            <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t)"><input type="checkbox" id="up-agri" checked> Agriculture marketplace price</label>
+            <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t)"><input type="checkbox" id="up-logi" checked> Logistics freight-adjusted quote</label>
+            <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t)"><input type="checkbox" id="up-retail" checked> Retail shelf price</label>
+          </div>
+          <button class="btnp" style="width:100%" onclick="pushUnifiedPrice()"><i class="ti ti-send" aria-hidden="true"></i> Push price to selected sectors ↗</button>
+        </div>
+        <div style="background:var(--teal-l);border-radius:var(--r);padding:12px">
+          <div style="font-size:12px;color:var(--teal-d);font-weight:500;margin-bottom:6px">Why push once?</div>
+          <div style="font-size:12px;color:var(--teal-d);line-height:1.8">One update, three sectors updated instantly<br>Retail & logistics stay consistent with farm-gate price<br>No manual re-entry or mismatched pricing<br>Every push logged for audit</div>
+        </div>
+      </div>
+    </div>
+    <div class="g3" style="margin-bottom:10px">
+      <div class="card" id="up-preview-agri" style="border-color:var(--teal)">
+        <div class="ch"><span class="ct" style="color:var(--teal)"><i class="ti ti-wheat" aria-hidden="true"></i> Agriculture</span><span class="badge bg">Synced</span></div>
+        <div style="font-size:11px;color:var(--m);margin-bottom:4px">Marketplace listing price</div>
+        <div class="mv" style="color:var(--teal)" id="up-agri-price">MK 18,500/bag</div>
+      </div>
+      <div class="card" id="up-preview-logi" style="border-color:var(--amber)">
+        <div class="ch"><span class="ct" style="color:var(--amber)"><i class="ti ti-truck" aria-hidden="true"></i> Logistics</span><span class="badge ba">Synced</span></div>
+        <div style="font-size:11px;color:var(--m);margin-bottom:4px">Freight-adjusted quote</div>
+        <div class="mv" style="color:var(--amber)" id="up-logi-price">MK 20,350/bag</div>
+      </div>
+      <div class="card" id="up-preview-retail" style="border-color:var(--purple)">
+        <div class="ch"><span class="ct" style="color:var(--purple)"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Retail</span><span class="badge bp">Synced</span></div>
+        <div style="font-size:11px;color:var(--m);margin-bottom:4px">Shelf price to end buyer</div>
+        <div class="mv" style="color:var(--purple)" id="up-retail-price">MK 22,200/bag</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><span class="ct"><i class="ti ti-history" aria-hidden="true"></i> Recent unified price pushes</span></div>
+      <div id="up-log">
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)"><i class="ti ti-tag" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>Maize (50kg bag) · MK 18,500</h4><p>Pushed to Agriculture, Logistics & Retail · Central Region</p></div><span class="badge bg">2 min ago</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="sector-payments" class="sector-panel">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('payments','overview')">Overview</div>
+    <div class="stab" onclick="showSub('payments','transactions')">Transactions</div>
+    <div class="stab" onclick="showSub('payments','wallet')">Wallet</div>
+  </div>
+  <div id="payments-overview" class="page active">
+    <div class="g4" style="margin-bottom:12px">
+      <div class="metric"><div class="ml">Wallet balance</div><div class="mv" style="color:var(--teal)">MK 612,400</div></div>
+      <div class="metric"><div class="ml">Payments today</div><div class="mv" style="color:var(--amber)">128</div></div>
+      <div class="metric"><div class="ml">Mobile money payments</div><div class="mv" style="color:var(--blue)">MK 340,000</div></div>
+      <div class="metric"><div class="ml">Mobile money linked</div><div class="mv">2</div></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-activity" aria-hidden="true"></i> Recent transactions</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)">MB</div><div class="ri"><h4>Mphatso Banda</h4><p>Paid for 50 bags maize · Airtel Money</p></div><div class="rr"><strong>MK 925,000</strong><span class="badge bg" style="margin-top:2px">Completed</span></div></div>
+        <div class="row"><div class="av" style="background:var(--amber-l);color:var(--amber)">TK</div><div class="ri"><h4>Tiyamike Kachingwe</h4><p>Logistics payout · Lil–Blantyre route</p></div><div class="rr"><strong>MK 45,000</strong><span class="badge ba" style="margin-top:2px">Processing</span></div></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)">FN</div><div class="ri"><h4>Fatima Nkosi</h4><p>Paid for soybean 5T · TNM Mpamba</p></div><div class="rr"><strong>MK 1,900,000</strong><span class="badge bg" style="margin-top:2px">Completed</span></div></div>
+      </div>
+      <div class="card">
+        <div class="ch"><span class="ct"><i class="ti ti-bulb" aria-hidden="true"></i> AI payments insights</span></div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div style="background:var(--teal-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--teal-d)"><strong>Cash flow:</strong> Wallet inflows up 22% this week from retail orders.</div>
+          <div style="background:var(--amber-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--amber)"><strong>Tip:</strong> Link both Airtel Money and TNM Mpamba for faster checkout.</div>
+          <div style="background:var(--blue-l);border-radius:var(--rm);padding:8px;font-size:12px;color:var(--blue)"><strong>Reminder:</strong> Logistics payouts settle faster via TNM Mpamba this week.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="payments-transactions" class="page">
+    <div class="card" style="margin-bottom:10px">
+      <div class="ch"><span class="ct"><i class="ti ti-receipt" aria-hidden="true"></i> Transaction history</span><span style="font-size:11px;color:var(--m)">Updated 1 min ago</span></div>
+      <table style="width:100%;font-size:12px;border-collapse:collapse">
+        <tr style="border-bottom:0.5px solid var(--b)"><th style="padding:6px 4px;text-align:left;color:var(--m);font-weight:500">Reference</th><th style="padding:6px 4px;text-align:left;color:var(--m);font-weight:500">Description</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Amount</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Method</th><th style="padding:6px 4px;color:var(--m);font-weight:500">Status</th></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">TXN-8821</td><td style="padding:7px 4px">Maize purchase · Mphatso Banda</td><td style="padding:7px 4px">MK 925,000</td><td style="padding:7px 4px">Airtel Money</td><td style="padding:7px 4px"><span class="badge bg">Completed</span></td></tr>
+        <tr style="border-bottom:0.5px solid var(--b)"><td style="padding:7px 4px">TXN-8825</td><td style="padding:7px 4px">Logistics payout · T. Kachingwe</td><td style="padding:7px 4px">MK 45,000</td><td style="padding:7px 4px">Bank transfer</td><td style="padding:7px 4px"><span class="badge ba">Processing</span></td></tr>
+        <tr><td style="padding:7px 4px">TXN-8830</td><td style="padding:7px 4px">Cooking oil restock · Sunflower</td><td style="padding:7px 4px">MK 1,260,000</td><td style="padding:7px 4px">TNM Mpamba</td><td style="padding:7px 4px"><span class="badge bb">Scheduled</span></td></tr>
+      </table>
+    </div>
+    <button class="btnp" onclick="sendPrompt('Show me a full breakdown of my ZaMsika transactions this month')">View full statement ↗</button>
+  </div>
+  <div id="payments-wallet" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-wallet" aria-hidden="true"></i> ZaMsika Wallet</span></div>
+        <div class="metric" style="margin-bottom:10px"><div class="ml">Available balance</div><div class="mv" style="color:var(--teal)">MK 612,400</div></div>
+        <div style="display:flex;gap:7px"><button class="btnp" style="flex:1" onclick="sendPrompt('I want to top up my ZaMsika wallet using mobile money')">Top up ↗</button><button class="btn" style="flex:1" onclick="sendPrompt('Withdraw funds from my ZaMsika wallet to my bank account')">Withdraw ↗</button></div>
+      </div>
+      <div class="card"><div class="ch"><span class="ct"><i class="ti ti-device-mobile" aria-hidden="true"></i> Linked payment methods</span></div>
+        <div class="row"><div class="av" style="background:var(--coral-l);color:var(--coral)"><i class="ti ti-brand-android" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>Airtel Money</h4><p>Linked · Primary</p></div><span class="badge bg">Active</span></div>
+        <div class="row"><div class="av" style="background:var(--teal-l);color:var(--teal-d)"><i class="ti ti-device-mobile" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>TNM Mpamba</h4><p>Linked</p></div><span class="badge bg">Active</span></div>
+        <div class="row"><div class="av" style="background:var(--blue-l);color:var(--blue)"><i class="ti ti-building-bank" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>National Bank of Malawi</h4><p>Bank transfer</p></div><span class="badge bb">Active</span></div>
+        <button class="btn" style="width:100%;margin-top:6px" onclick="sendPrompt('I want to link a new mobile money or bank account to my ZaMsika wallet')">Link new method ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="sector-chat" class="sector-panel">
+  <div class="subtabs">
+    <div class="stab active" onclick="showSub('chat','main')">AI assistant</div>
+    <div class="stab" onclick="showSub('chat','quick')">Quick actions</div>
+  </div>
+  <div id="chat-main" class="page active">
+    <div class="g2">
+      <div class="chat-wrap">
+        <div class="chat-head" style="background:var(--teal)">
+          <div class="av" style="background:rgba(255,255,255,0.2);color:#fff;font-size:16px"><i class="ti ti-robot" aria-hidden="true"></i></div>
+          <div style="flex:1"><div style="color:#fff;font-size:13px;font-weight:500">ZaMsika AI — full platform</div><div id="clang-label" style="color:#9FE1CB;font-size:11px">English</div></div>
+        </div>
+        <div class="chat-msgs" id="main-msgs">
+          <div class="msg mbot">Hello! I'm the ZaMsika AI. I can help with agriculture, buying, livelihoods, education, or logistics. What kind of help do you need?<div class="mlang">English</div></div>
+          <div class="msg mbot" style="font-size:11px;color:var(--m);background:none;border:none;padding:4px 0">I can help with agriculture, retail, logistics & pricing across the whole platform.</div>
+        </div>
+        <div class="chat-in">
+          <input id="main-in" placeholder="Type your question..." onkeydown="if(event.key==='Enter')sendMain()">
+          <button class="btnp" style="font-size:12px" onclick="sendMain()"><i class="ti ti-send" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:10px"><div class="ch"><span class="ct"><i class="ti ti-language" aria-hidden="true"></i> Language support</span></div>
+          <div style="font-size:12px;color:var(--m);line-height:1.8">The ZaMsika AI currently operates in <strong style="color:var(--t)">English</strong>, helping rural farmers, traders, and transporters access the platform.<br><br>Covers agriculture, retail, and logistics.</div>
+        </div>
+        <div class="card"><div class="ch"><span class="ct"><i class="ti ti-bolt" aria-hidden="true"></i> Cross-sector quick actions</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <button class="btn" style="font-size:11px" onclick="quickMain('I want to buy maize — find me sellers')">Buy maize ↗</button>
+            <button class="btn" style="font-size:11px" onclick="quickMain('Book cargo from Mzuzu to Blantyre')">Book logistics ↗</button>
+            <button class="btn" style="font-size:11px" onclick="quickMain('Track my latest shipment on ZaMsika')">Track shipment ↗</button>
+            <button class="btn" style="font-size:11px" onclick="quickMain('I want to sell secondhand clothes — find me buyers')">Sell retail ↗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="chat-quick" class="page">
+    <div class="g2">
+      <div class="card"><div class="ch"><span class="ct" style="color:var(--teal)"><i class="ti ti-wheat" aria-hidden="true"></i> Agriculture</span></div><div style="display:flex;flex-direction:column;gap:5px"><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('Maize price today — Central Region')">Maize price today ↗</button><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('Find me groundnut buyers in Lilongwe')">Find groundnut buyers ↗</button><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('AI, find me a fair price for soya')">AI fair price for soya ↗</button></div></div>
+      <div class="card"><div class="ch"><span class="ct" style="color:var(--purple)"><i class="ti ti-shopping-cart" aria-hidden="true"></i> Retail</span></div><div style="display:flex;flex-direction:column;gap:5px"><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('Find the cheapest cooking oil suppliers in Lilongwe')">Cheapest cooking oil ↗</button><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('I want to register my shop on ZaMsika marketplace')">Register my shop ↗</button></div></div>
+      <div class="card"><div class="ch"><span class="ct" style="color:var(--teal)"><i class="ti ti-truck" aria-hidden="true"></i> Logistics</span></div><div style="display:flex;flex-direction:column;gap:5px"><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('Book cargo from Kasungu to Lilongwe')">Book a transporter ↗</button><button class="btn" style="font-size:11px;text-align:left" onclick="quickMain('Give me a live ETA for my shipment on ZaMsika')">Track my shipment ↗</button></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+<footer id="zm-contact-footer" class="zm-footer"><div class="zm-contact"><div>📞 <a href="tel:0781822007">0781 822 007</a><br><small>Call / WhatsApp</small></div><div>✉️ <a href="mailto:msambastallone@yahoo.com">msambastallone@yahoo.com</a><br><small>Email Us</small></div><div>📍 Malawi<br><small>Together We Grow</small></div></div><div class="zm-social"><a href="#" aria-label="Facebook" style="background:#1877F2"><img src="https://cdn.simpleicons.org/facebook/ffffff" alt="Facebook" style="width:17px;height:17px"></a><a href="#" aria-label="Instagram" style="background:radial-gradient(circle at 30% 110%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)"><img src="https://cdn.simpleicons.org/instagram/ffffff" alt="Instagram" style="width:17px;height:17px"></a><a href="#" aria-label="TikTok" style="background:#000"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" style="width:16px;height:16px"></a><a href="#" aria-label="X (Twitter)" style="background:#000"><img src="https://cdn.simpleicons.org/x/ffffff" alt="X" style="width:15px;height:15px"></a><a href="#" aria-label="YouTube" style="background:#FF0000"><img src="https://cdn.simpleicons.org/youtube/ffffff" alt="YouTube" style="width:17px;height:17px"></a><a href="#" aria-label="LinkedIn" style="background:#0A66C2"><img src="https://cdn.simpleicons.org/linkedin/ffffff" alt="LinkedIn" style="width:16px;height:16px"></a></div><div style="font-weight:800;font-size:24px">🌱 Za<span style="color:#bde88e">Msika</span><div style="font-size:11px">Buy • Sell • Transport</div></div></footer>
+<script>
+function setSector(s){
+  document.querySelectorAll('.sector-btn').forEach((b,i)=>{
+    const ss=['agri','retail','logistics','supply','payments','chat'];
+    b.classList.toggle('active',ss[i]===s);
+  });
+  document.querySelectorAll('.sector-panel').forEach(p=>{
+    p.classList.toggle('active',p.id==='sector-'+s);
+  });
+}
+function showSub(sector,sub){
+  const panel=document.getElementById('sector-'+sector);
+  panel.querySelectorAll('.stab').forEach(t=>{
+    const id=sector+'-'+sub;
+    t.classList.toggle('active',t.getAttribute('onclick')&&t.getAttribute('onclick').includes("'"+sub+"'"));
+  });
+  panel.querySelectorAll('.page').forEach(p=>{
+    p.classList.toggle('active',p.id===sector+'-'+sub);
+  });
+}
+let chatLang='english';
+const botReplies={
+  english:["Thanks for your query! Let me check that.","I can help with that right away.","Based on current market data...","Great question — here's what I found."]
+};
+function addMsg(id,text,who,lang){
+  const c=document.getElementById(id);
+  const d=document.createElement('div');
+  d.className='msg '+(who==='bot'?'mbot':'muser');
+  if(who==='user')d.style.background='#B42318';
+  d.innerHTML=text+(who==='bot'?'<div class="mlang">'+(lang||chatLang)+'</div>':'');
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function reply(msgId,lang){
+  const r=botReplies[lang||chatLang];
+  setTimeout(()=>addMsg(msgId,r[Math.floor(Math.random()*r.length)],'bot',lang||chatLang),600);
+}
+function sendMain(){const i=document.getElementById('main-in');const t=i.value.trim();if(!t)return;addMsg('main-msgs',t,'user');i.value='';reply('main-msgs');}
+function quickMain(t){addMsg('main-msgs',t,'user');reply('main-msgs');setSector('chat');showSub('chat','main');}
+function pushUnifiedPrice(){
+  const item=document.getElementById('up-item').value.trim()||'Item';
+  const price=parseFloat(document.getElementById('up-price').value)||0;
+  const region=document.getElementById('up-region').value;
+  const agri=document.getElementById('up-agri').checked;
+  const logi=document.getElementById('up-logi').checked;
+  const retail=document.getElementById('up-retail').checked;
+  const sectors=[];
+  if(agri)sectors.push('Agriculture');
+  if(logi)sectors.push('Logistics');
+  if(retail)sectors.push('Retail');
+  if(sectors.length===0){alert('Select at least one sector to push this price to.');return;}
+  const fmt=n=>'MK '+Math.round(n).toLocaleString();
+  const logiPrice=price*1.10;
+  const retailPrice=logiPrice*1.09;
+  document.getElementById('up-preview-agri').style.opacity=agri?'1':'0.35';
+  document.getElementById('up-preview-logi').style.opacity=logi?'1':'0.35';
+  document.getElementById('up-preview-retail').style.opacity=retail?'1':'0.35';
+  if(agri)document.getElementById('up-agri-price').textContent=fmt(price)+'/unit';
+  if(logi)document.getElementById('up-logi-price').textContent=fmt(logiPrice)+'/unit';
+  if(retail)document.getElementById('up-retail-price').textContent=fmt(retailPrice)+'/unit';
+  const log=document.getElementById('up-log');
+  const row=document.createElement('div');
+  row.className='row';
+  row.innerHTML='<div class="av" style="background:var(--teal-l);color:var(--teal-d)"><i class="ti ti-tag" style="font-size:14px" aria-hidden="true"></i></div><div class="ri"><h4>'+item+' · '+fmt(price)+'</h4><p>Pushed to '+sectors.join(', ')+' · '+region+'</p></div><span class="badge bg">Just now</span>';
+  log.insertBefore(row,log.firstChild);
+  sendPrompt('Push a unified price of '+fmt(price)+' for '+item+' in '+region+' to '+sectors.join(', ')+' simultaneously on ZaMsika');
+}
+
+
+// ZaMsika marketplace prototype: listings and cart persist in this browser.
+const defaultAgriProducts = [
+  {name:"Maize",price:18500,qty:"50 kg bag",seller:"Chimwemwe Farm",location:"Kasungu",category:"Grains"},
+  {name:"Groundnuts",price:450000,qty:"1 tonne",seller:"Chisomo Zimba",location:"Mzuzu",category:"Legumes"},
+  {name:"Soybean",price:380000,qty:"1 tonne",seller:"Fatima Enterprises",location:"Zomba",category:"Legumes"},
+  {name:"Tomatoes",price:12000,qty:"20 kg crate",seller:"Green Valley Farm",location:"Lilongwe",category:"Vegetables"}
+];
+const defaultRetailProducts = [
+  {name:"Chitenge fabric",price:8500,qty:"6 yards",seller:"Lusungu Textiles",location:"Blantyre",category:"Clothing"},
+  {name:"Cooking oil",price:42000,qty:"20L drum",seller:"Sunflower Wholesale",location:"Lilongwe",category:"Groceries"},
+  {name:"Android 4G smartphone",price:185000,qty:"1 unit",seller:"Techmart",location:"Mzuzu",category:"Electronics"},
+  {name:"Farm tools",price:25000,qty:"1 set",seller:"Agro Hardware",location:"Lilongwe",category:"Hardware"}
+];
+
+function getProducts(key, defaults){
+  const saved=localStorage.getItem(key);
+  if(saved) return JSON.parse(saved);
+  localStorage.setItem(key,JSON.stringify(defaults));
+  return defaults;
+}
+function saveProducts(key,items){localStorage.setItem(key,JSON.stringify(items));}
+function money(n){return "MK "+Number(n||0).toLocaleString();}
+
+function renderAgricultureProducts(){
+  const grid=document.getElementById('agri-product-grid'); if(!grid)return;
+  const q=(document.getElementById('agri-product-search')?.value||'').toLowerCase();
+  const cat=document.getElementById('agri-product-category')?.value||'All categories';
+  const items=getProducts('zamsika_agri_products',defaultAgriProducts).filter(p=>
+    (cat==='All categories'||p.category===cat) &&
+    [p.name,p.seller,p.location,p.category].join(' ').toLowerCase().includes(q)
+  );
+  grid.innerHTML=items.length?items.map((p,i)=>`
+    <div class="pcard">
+      <div class="picon" style="background:var(--teal-l)"><i class="ti ti-wheat" style="font-size:28px;color:var(--teal)"></i></div>
+      <h4 style="font-size:13px;font-weight:500">${escapeHtml(p.name)}</h4>
+      <p style="font-size:11px;color:var(--m);margin:3px 0 7px">${escapeHtml(p.qty)} · ${escapeHtml(p.seller)} · ${escapeHtml(p.location)}</p>
+      <div style="font-size:14px;font-weight:500;color:var(--teal);margin-bottom:6px">${money(p.price)}</div>
+      <span class="tag tg">${escapeHtml(p.category)}</span>
+      <div class="product-actions"><button class="btnp" onclick="addToCart('agri',${i})">Order</button><button class="btn" onclick="alert('Seller: ${escapeJs(p.seller)}\\nLocation: ${escapeJs(p.location)}\\nPrice: ${escapeJs(money(p.price))}')">Details</button></div>
+    </div>`).join(''):'<div class="empty-products">No products match your search.</div>';
+}
+function renderRetailProducts(){
+  const grid=document.getElementById('retail-product-grid'); if(!grid)return;
+  const q=(document.getElementById('retail-product-search')?.value||'').toLowerCase();
+  const cat=document.getElementById('retail-product-category')?.value||'All categories';
+  const items=getProducts('zamsika_retail_products',defaultRetailProducts).filter(p=>
+    (cat==='All categories'||p.category===cat) &&
+    [p.name,p.seller,p.location,p.category].join(' ').toLowerCase().includes(q)
+  );
+  grid.innerHTML=items.length?items.map((p,i)=>`
+    <div class="pcard">
+      <div class="picon" style="background:var(--purple-l)"><i class="ti ti-shopping-cart" style="font-size:28px;color:var(--purple)"></i></div>
+      <h4 style="font-size:13px;font-weight:500">${escapeHtml(p.name)}</h4>
+      <p style="font-size:11px;color:var(--m);margin:3px 0 7px">${escapeHtml(p.qty)} · ${escapeHtml(p.seller)} · ${escapeHtml(p.location)}</p>
+      <div style="font-size:14px;font-weight:500;color:var(--purple);margin-bottom:6px">${money(p.price)}</div>
+      <span class="tag tp">${escapeHtml(p.category)}</span>
+      <div class="product-actions"><button class="btnp" onclick="addToCart('retail',${i})">Buy</button><button class="btn" onclick="alert('Seller: ${escapeJs(p.seller)}\\nLocation: ${escapeJs(p.location)}\\nPrice: ${escapeJs(money(p.price))}')">Details</button></div>
+    </div>`).join(''):'<div class="empty-products">No products match your search.</div>';
+}
+function addAgricultureProduct(){
+  const p={name:val('agri-name'),price:Number(val('agri-price')),qty:val('agri-qty'),seller:val('agri-seller'),location:val('agri-location'),category:val('agri-category')};
+  if(!p.name||!p.price||!p.qty||!p.seller||!p.location){alert('Please fill in all product fields.');return;}
+  const items=getProducts('zamsika_agri_products',defaultAgriProducts); items.unshift(p); saveProducts('zamsika_agri_products',items);
+  clearFields(['agri-name','agri-price','agri-qty','agri-seller','agri-location']); renderAgricultureProducts(); alert('Agricultural product added.');
+}
+function addRetailProduct(){
+  const p={name:val('retail-name'),price:Number(val('retail-price')),qty:val('retail-qty'),seller:val('retail-seller'),location:val('retail-location'),category:val('retail-category')};
+  if(!p.name||!p.price||!p.qty||!p.seller||!p.location){alert('Please fill in all product fields.');return;}
+  const items=getProducts('zamsika_retail_products',defaultRetailProducts); items.unshift(p); saveProducts('zamsika_retail_products',items);
+  clearFields(['retail-name','retail-price','retail-qty','retail-seller','retail-location']); renderRetailProducts(); alert('Retail product added.');
+}
+function val(id){return document.getElementById(id)?.value.trim()||'';}
+function clearFields(ids){ids.forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});}
+function addToCart(type,index){
+  const key=type==='agri'?'zamsika_agri_products':'zamsika_retail_products';
+  const items=getProducts(key,type==='agri'?defaultAgriProducts:defaultRetailProducts);
+  const p=items[index]; if(!p)return;
+  const cart=JSON.parse(localStorage.getItem('zamsika_cart')||'[]');
+  cart.push({...p,type});
+  localStorage.setItem('zamsika_cart',JSON.stringify(cart));
+  updateCartCount();
+  alert(p.name+' added to your cart.');
+}
+function getCart(){return JSON.parse(localStorage.getItem('zamsika_cart')||'[]');}
+function saveCart(cart){localStorage.setItem('zamsika_cart',JSON.stringify(cart));}
+function openCartView(){
+  renderCartView();
+  document.getElementById('cartViewModal').style.display='flex';
+}
+function closeCartView(){document.getElementById('cartViewModal').style.display='none';}
+function renderCartView(){
+  const cart=getCart();
+  const list=document.getElementById('cartViewList');
+  const totalEl=document.getElementById('cartViewTotal');
+  const checkoutBtn=document.getElementById('cartViewCheckoutBtn');
+  if(!cart.length){
+    list.innerHTML='<div class="empty-products">Your cart is empty.</div>';
+    totalEl.textContent=money(0);
+    checkoutBtn.disabled=true;
+    return;
+  }
+  checkoutBtn.disabled=false;
+  list.innerHTML=cart.map((p,i)=>`
+    <div class="zm-modal-item">
+      <span>${escapeHtml(p.name)}<br><small style="color:var(--m);font-weight:400">${escapeHtml(p.qty||'')}</small></span>
+      <span style="display:flex;align-items:center;gap:8px"><strong>${money(p.price)}</strong><button class="btn" style="padding:4px 9px;font-size:11px" onclick="removeCartItem(${i})">Remove</button></span>
+    </div>`).join('');
+  const total=cart.reduce((s,p)=>s+Number(p.price||0),0);
+  totalEl.textContent=money(total);
+}
+function removeCartItem(i){
+  const cart=getCart(); cart.splice(i,1); saveCart(cart); updateCartCount(); renderCartView();
+}
+function proceedToCheckout(){
+  const cart=getCart();
+  if(!cart.length){alert('Your cart is empty.');return;}
+  closeCartView();
+  openCheckoutModal();
+}
+function openCheckoutModal(){
+  const cart=getCart();
+  const total=cart.reduce((s,p)=>s+Number(p.price||0),0);
+  document.getElementById('checkoutItemName').textContent=cart.length+(cart.length===1?' item':' items');
+  document.getElementById('checkoutItemPrice').textContent=money(total);
+  document.querySelectorAll('#checkoutModal input[name="paymethod"]').forEach((el,i)=>el.checked=i===0);
+  document.getElementById('checkoutModal').style.display='flex';
+}
+function closeCheckoutModal(){document.getElementById('checkoutModal').style.display='none';}
+function confirmCheckout(){
+  const cart=getCart();
+  if(!cart.length){closeCheckoutModal();return;}
+  const sel=document.querySelector('#checkoutModal input[name="paymethod"]:checked');
+  const method=sel?sel.value:'Airtel Money';
+  const total=cart.reduce((s,p)=>s+Number(p.price||0),0);
+  saveCart([]);
+  updateCartCount();
+  closeCheckoutModal();
+  alert('Order placed for '+money(total)+' — paying via '+method+'.');
+}
+function updateCartCount(){
+  const n=JSON.parse(localStorage.getItem('zamsika_cart')||'[]').length;
+  const top=document.getElementById('cartCountTop'); if(top)top.textContent=n;
+  ['agri-cart-count','retail-cart-count'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='Cart: '+n;});
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escapeJs(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,' ');}
+document.addEventListener('DOMContentLoaded',()=>{updateCartCount();renderAgricultureProducts();renderRetailProducts();});
+
+
+function hideLanding(){document.getElementById('zm-home').style.display='none';document.getElementById('zm-platform').style.display='block';document.getElementById('zm-contact-footer').style.display='none';}
+function showHome(){document.getElementById('zm-home').style.display='block';document.getElementById('zm-platform').style.display='none';document.getElementById('zm-contact-footer').style.display='flex';document.querySelectorAll('.zm-nav a').forEach(a=>a.classList.remove('active'));document.getElementById('navHome').classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function openSector(s){hideLanding();if(typeof setSector==='function')setSector(s);window.scrollTo({top:0,behavior:'smooth'});}
+function showAbout(){showHome();setTimeout(()=>document.getElementById('about').scrollIntoView({behavior:'smooth'}),50);}
+function showContact(){showHome();setTimeout(()=>document.getElementById('zm-contact-footer').scrollIntoView({behavior:'smooth'}),50);}
+function openFeatured(){document.getElementById('products').scrollIntoView({behavior:'smooth'});}
+function runZmSearch(e){e.preventDefault();const q=document.getElementById('zmSearchInput').value.trim().toLowerCase();if(!q){openFeatured();return;}hideLanding();if(q.includes('transport')||q.includes('truck')||q.includes('logistics'))setSector('logistics');else if(q.includes('oil')||q.includes('retail')||q.includes('phone')||q.includes('clothes')){setSector('retail');if(typeof showSub==='function'){showSub('retail','products');if(typeof renderRetailProducts==='function')renderRetailProducts();}}else{setSector('agri');if(typeof showSub==='function'){showSub('agri','products');if(typeof renderAgricultureProducts==='function')renderAgricultureProducts();}}}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('zm-platform').style.display='none';document.getElementById('zm-contact-footer').style.display='flex';});
+</script>
+<div id="cartViewModal" class="zm-modal-overlay" onclick="if(event.target===this)closeCartView()">
+  <div class="zm-modal">
+    <h3>Your cart</h3>
+    <div id="cartViewList" style="max-height:260px;overflow-y:auto;margin-bottom:12px"></div>
+    <div class="zm-modal-item"><span>Total</span><strong id="cartViewTotal">MK 0</strong></div>
+    <div class="zm-modal-actions"><button class="btn" onclick="closeCartView()">Continue shopping</button><button class="btnp" id="cartViewCheckoutBtn" onclick="proceedToCheckout()">Proceed to checkout</button></div>
+  </div>
+</div>
+<div id="checkoutModal" class="zm-modal-overlay" onclick="if(event.target===this)closeCheckoutModal()">
+  <div class="zm-modal">
+    <h3>Complete your order</h3>
+    <div class="zm-modal-item"><span id="checkoutItemName"></span><strong id="checkoutItemPrice"></strong></div>
+    <div class="zm-modal-label">Choose payment method</div>
+    <label class="zm-paymethod"><input type="radio" name="paymethod" value="Airtel Money" checked><span class="zm-pm-icon" style="background:#ED1C24"><img src="https://cdn.simpleicons.org/airtel/ffffff" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"></span>Airtel Money</label>
+    <label class="zm-paymethod"><input type="radio" name="paymethod" value="TNM Mpamba"><span class="zm-pm-icon" style="background:#F7941D"><i class="ti ti-device-mobile" style="color:#fff;font-size:14px" aria-hidden="true"></i></span>TNM Mpamba</label>
+    <label class="zm-paymethod"><input type="radio" name="paymethod" value="Bank Transfer"><span class="zm-pm-icon" style="background:#0A66C2"><i class="ti ti-building-bank" style="color:#fff;font-size:14px" aria-hidden="true"></i></span>Bank Transfer</label>
+    <div class="zm-modal-actions"><button class="btn" onclick="closeCheckoutModal()">Cancel</button><button class="btnp" onclick="confirmCheckout()">Confirm order</button></div>
+  </div>
+</div>
+</body></html>
