@@ -1,74 +1,61 @@
-# AI Career Community
+# ZaMsika
 
-## About
+**AI-Powered Marketplace for Agriculture, Retail, Logistics and Supply Chain in Malawi**
 
-**AI Career Community** is a simple online community designed to help people at different career levels connect, share ideas, learn from each other, and get support using Artificial Intelligence.
+## Overview
 
-The platform is intended to make career development more accessible, especially for people who may have limited access to expensive career services, training, or professional networks.
+ZaMsika is a digital marketplace concept designed to connect **farmers, producers, buyers, retailers, transport providers, and businesses** in Malawi.
 
-## What the Platform Offers
+The platform brings marketplace services, logistics, supply-chain information, payments, and AI-powered insights together in one digital environment.
 
-* 👥 **Career Community** — Connect with people from different professions and career levels.
-* 💡 **Idea Sharing** — Share career ideas, projects, opportunities, and experiences.
-* 🤝 **Peer Guidance** — Give and receive practical advice from other community members.
-* 🤖 **AI Career Support** — Explore how AI tools can assist with career development and learning.
-* 📚 **Learning & Skills** — Discover skills and resources that can support career growth.
-* 💼 **Career Opportunities** — Share and discover jobs, projects, internships, and other opportunities.
-* 🌍 **Inclusive Community** — Support people from different backgrounds, industries, and experience levels.
+## Features
 
-## Target Users
+* 🌾 **Agriculture Marketplace** — List, discover, and trade agricultural products.
+* 🛒 **Retail Marketplace** — Connect buyers and sellers across different product categories.
+* 📊 **Market Pricing** — Support price comparison and market information.
+* 🤝 **Negotiation** — Allow buyers and sellers to negotiate transactions.
+* 🚚 **Logistics** — Support transportation and delivery coordination.
+* 🔗 **Supply Chain** — Connect different participants across the supply chain.
+* 💳 **Payments** — Designed for future digital payment integration.
+* 🤖 **AI Support** — Provide market insights, recommendations, and business assistance.
 
-The platform can support:
+## Problem
 
-* Students and graduates
-* Job seekers
-* Early-career professionals
-* Experienced professionals
-* Entrepreneurs
-* Freelancers
-* Career changers
-* People learning AI and digital skills
+Farmers and small businesses can face difficulties finding buyers, accessing market information, comparing prices, and arranging transportation.
 
-## Project Goals
-
-The main goals are to:
-
-1. Make career support more accessible.
-2. Encourage people to learn from one another.
-3. Help users use AI responsibly for career development.
-4. Create opportunities for collaboration and networking.
-5. Connect people with useful career and learning resources.
+ZaMsika explores how **digital technology and AI can improve market access and supply-chain coordination**.
 
 ## Technology
 
-The initial version is being developed as a simple web project using:
+The current prototype uses:
 
 * HTML
 * CSS
 * JavaScript
 
-Future versions could include:
+Future development may include:
 
-* User accounts and profiles
-* Community discussions
-* AI-powered career assistance
-* Job and opportunity matching
-* Messaging
-* Notifications
-* APIs and external AI tools
+* AI APIs
 * Database integration
+* User accounts
+* Real-time market data
+* Digital payments
+* Logistics integration
+* Mobile applications
 
 ## Project Status
 
-🚧 **Early Development**
+🚧 **Prototype — Early Development**
 
-This project is currently a prototype. Features and design will continue to evolve based on user needs and testing.
+The current version is a working concept and will continue to be developed and improved.
+
+**Note:** Product names, quantities, prices, and other marketplace information currently displayed are temporary sample data for demonstration purposes.
 
 ## Vision
 
-The long-term vision is to create an affordable and accessible **AI-supported career community** where people can connect, exchange knowledge, develop skills, discover opportunities, and help each other progress in their careers.
+To build an accessible digital marketplace that helps connect Malawi's **producers, buyers, businesses, logistics providers, and markets** through technology and AI.
 
-## Developer:
+## Developer
 
 **Stallone Msamba**
 
