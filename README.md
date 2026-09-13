@@ -72,4 +72,4 @@ The long-term vision is to create an affordable and accessible **AI-supported ca
 
 **Stallone Msamba**
 
-Independent Researcher | AI Training & Evaluation | Digital Transformation
+Independent Researcher | MBA | Digital Transformation
