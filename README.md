@@ -68,7 +68,7 @@ This project is currently a prototype. Features and design will continue to evol
 
 The long-term vision is to create an affordable and accessible **AI-supported career community** where people can connect, exchange knowledge, develop skills, discover opportunities, and help each other progress in their careers.
 
-## Author
+## Developer:
 
 **Stallone Msamba**
 
